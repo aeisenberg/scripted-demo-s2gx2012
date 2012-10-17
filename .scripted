@@ -1,0 +1,35 @@
+{
+   "jslint": {
+       "options": {
+           "browser": true
+       },
+       "global": [ "require", "console", "foo:false" ]
+   },
+   
+   "exec": {
+        "onKeys": {
+            "alt+ctrl+shift+n": {
+            	"name" : "Launch node server",
+                "cmd" : "node app.js",
+                "timeout": 60000
+            },
+            "alt+ctrl+shift+k": "wget http://localhost:8231/kill",
+            
+            "alt+ctrl+shift+p": {
+                "name": "Push scriptedBooks to CF",
+                "cmd": "vmc push -n scriptedBooks --runtime node08 --path .",
+                "timeout":60000
+            }
+        },
+        
+        "afterSave": {
+        	"**/*.js" : {
+                "name": "Update scriptedBooks on CF",
+                "cmd": "vmc update -n scriptedBooks",
+                "timeout":60000
+            }
+        }
+    }
+
+
+}
